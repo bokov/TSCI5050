@@ -1,1 +1,1 @@
-# SP22TSCI5050
+# Introduction to Data Science
