@@ -24,17 +24,17 @@
 # This part does not show up in your rendered report, only in the script,
 # because we are using regular comments instead of #' comments
 debug <- 0;
-knitr::opts_chunk$set(echo=debug>-1, warning=debug>0, message=debug>0);
+knitr::opts_chunk$set(echo=debug>-1, warning=debug>0, message=debug>0, class.output="scroll-20", attr.output='style="max-height: 150px; overflow-y: auto;"');
 
 library(ggplot2); # visualisation
 library(GGally);
 library(rio);# simple command for importing and exporting
 library(pander); # format tables
-library(printr); # set limit on number of lines printed
+#library(printr); # set limit on number of lines printed
 library(broom); # allows to give clean dataset
 library(dplyr); #add dplyr library
 
-options(max.print=42);
+options(max.print=500);
 panderOptions('table.split.table',Inf); panderOptions('table.split.cells',Inf);
 whatisthis <- function(xx){
   list(class=class(xx),info=c(mode=mode(xx),storage.mode=storage.mode(xx)
@@ -87,7 +87,9 @@ bar <- foo;
 #'
 #' ## Functions and Simple Data Types
 #'
-#' Numeric. You can do arithmetic on them: `+`, `-`, `/`, `*`, `^`, `log()`,
+#' ### Numeric values. 
+#' 
+#' You can do arithmetic on them: `+`, `-`, `/`, `*`, `^`, `log()`,
 #' `exp()`, `sqrt()`
 
 #+ assignment_numeric
@@ -99,45 +101,43 @@ log(foo)
 bar <- 5*5; bar
 whatisthis(bar);
 print(foo <- 42)
-print (shoo <-67)
-log(((foo*3)+(shoo+2)*sqrt(144)+exp(10)))
-#' Character strings. Create these by wrapping single (`'`) or double (`"`)
-#' quotes around the value.
+print (bar <-67)
+log(((foo*3)+(bar+2)*sqrt(144)+exp(10)))
 
+#' ### Character strings. 
+#' 
+#' Create these by wrapping single (`'`) or double (`"`)
+#' quotes around the value.
 #+ assignment_string
-a <- "Donot panic"
-print(a)
-coo <- "Donot panic"; coo
 a <- "Donot panic"; a
 b <- 'Donot panic'; b
 c <- "Don't panic"; c
 d <- 'The "Heart of Gold" comes equipped with heated leather seats and an infinite improbability drive'; d
-print (d)
 e <- 42; e
 e <- "42"; e
-#' Logical values are `TRUE` or `FALSE`. Can also be created using `>`, `<`,
-#' `==`, `!=`, `>=`, `<=`
 
+#' ### Logical values.
+#' 
+#' These are `TRUE` or `FALSE`. They can be created using `>`, `<`,
+#' `==`, `!=`, `>=`, `<=`, `&`, `|`, and `!`
 #+ assignment_logical
-foo > 25     ;#' assign variable foo
-shoo >100    ;#' assign variable shoo
-foo >= 40    ; #' using operator
-foo != 42    ; #' using NOT operator
-foo == 42    ; #' using EQUAL operator
-shoo == 42   ; #' using operator
-foo <50 & shoo<100 ; #' using 'AND' operator
-foo<50 | shoo>100; #' using OR operator
-foo<50 | shoo<50
-foo>50 | shoo<50
-! foo>50
-!(shoo>50);  #' using NOT operator
-! foo>50 & shoo>50
+a <- foo > 25; a           # greater than
+b <- foo >= 40; b          # greater or equal to
+c <- foo != 42; c          # not equal -- ! is the 'not' operator
+d <- foo == 42; d          # equal -- == is the equal operator (as opposed to = which is assignment)
+e <- foo <50 & bar<100 ; e #  AND operator
+f <- foo<50 | bar>100; f   #  OR operator
+g <- !(bar>50); g          #  NOT operator can be used with any TRUE/FALSE expression
 
+#' ### Missing values
+#' 
 #' Missing values are represented by `NA` (no quotes for any of these). Null
 #' values are _not_ the same as missing and they are represented by `NULL`. In
 #' some circumstances you might also run into `Inf`, `-Inf`, and `NaN`. These
 #' often indicate errors somewhere else in your code.
 
+#' ### Dates and times
+#' 
 #' Dates and times. Can be created with the `Sys.Date()` or `Sys.time()`
 #' functions or converted from a character string using `as.Date()`.
 
@@ -152,6 +152,9 @@ new_date <- as.Date(my_date) ; #' convert character string
 new_date                      ; #' print new_date
 class(new_date)               ;#' check class of new_date
 as.Date(new_date, tryFormats = c("%y-%m-%d"))
+
+#' ### Factors
+#' 
 #' Factors are basically integers that have labels. They are a human-readable
 #' alternative to using integer codes for discrete data. These will make more
 #' sense after we talk about vectors in the next section.
@@ -401,9 +404,8 @@ perf %>% tidy() %>% select(c("estimate","p.value")) %>% slice((1:3)) # gives 1 t
 perf %>% tidy() %>% select(c("estimate","p.value")) %>% slice(-(1:3)) # removes 1 to 3 rwos
 whatisthis(perf) # gives class of the variable
 
-#' View(perf) # view inside of object
+#' `View(perf)` # view inside of object
 
 #+ ## multiple comparison
 perf %>% tidy() %>% select(c("p.value")) %>% slice(-1)
-#'perf %>% tidy() %>% select(c("p.value")) %>% slice(-1) %>% p.adjust()
 perf %>% tidy() %>% select(c("p.value")) %>% slice(-1) %>% unlist() %>% p.adjust()
