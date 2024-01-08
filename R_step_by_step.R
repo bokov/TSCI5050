@@ -334,58 +334,6 @@ iris[4:10,prevar]
 #' # Datasets and `dplyr`
 #+ Working with datasets and DPLYR
 
-r"(/Users/YOURNAME/Desktop/projects/tsci/TSCI 5050 self/dataset)" %>% gsub("////","/",.) # to replace anything in the address
-list.files("/Users/YOURNAME/Desktop/projects/tsci/TSCI 5050 self/dataset") # to see anyfiles in the folder
-
-dtset <- list.files("/Users/YOURNAME/Desktop/projects/tsci/TSCI 5050 self/dataset", full.names = TRUE) %>%
-  sapply(import) %>% setNames(.,basename(names(.))) # to change the base names
-example1 <- dtset
-example2 <- example1$Birthweight.sav
-
-#+ file_import, echo = FALSE
-# #' ## Importing a File
-# birthweight <- import("/Users/harshitgarg/Desktop/projects/tsci/TSCI 5050 self/dataset/Birthweight.sav")
-#
-# #' ## Introduction to `dplyr`
-# mutate(birthweight, AGE=AGE*12) %>% View() # converting age to months
-# mutate(birthweight, AGEMonths =AGE*12) %>% head() # converting age to months and adding as column
-# mutate(birthweight, AGEMonths = AGE*12, AGEdays= AGEMonths*30.25) %>% View
-# table(birthweight$RACE) # extract a column from a dataset
-# with(birthweight, case_when(RACE== 1~ "Caucasian", RACE== 2~"ASIAN", RACE== 3~ "AFRICAN AMERICAN/BLACK", TRUE~ as.character(RACE))) %>% table()
-#
-# #' Assigning Descriptive Values to a Code
-# mutate(birthweight, AGEMonths = AGE*12, AGEdays= AGEMonths*30.25,
-#        RACEName= case_when(RACE== 1~ "Caucasian",
-#                            RACE== 2~"ASIAN",
-#                            RACE== 3~ "AFRICAN AMERICAN/BLACK",
-#                            TRUE~ as.character(RACE))) %>% head()
-#
-# summary(birthweight$BWT)
-#
-# #' ## The `summarise()` Function
-# #'
-# summary(birthweight$BWT) # gives summary of the particular column min/max, median, quartiles
-# summary(birthweight) # gives summary of all columns min/max, median, quartiles
-# summarise(birthweight) # gives columns and rows in dataset
-# summarise(birthweight, age=median(AGE)) # gives summary measure for a column
-# summarise(birthweight, age=median(AGE), height= median(HT), meanage= mean(AGE))
-# table(birthweight$SMOKE)
-# group_by(birthweight,SMOKE) %>% summarise(birthweight, age=median(AGE), height= median(HT), meanage= mean(AGE))
-# group_by(birthweight,SMOKE) %>% summarise(height= median(HT), meanage= mean(AGE))
-# group_by(birthweight,SMOKE) %>% summarise(across(where(is.numeric),mean)) # summarise dataset by group and give mean for each column
-# group_by(birthweight,SMOKE) %>% summarise(across(where(is.numeric),sd))
-#
-# group_by(birthweight,SMOKE) %>% summarise(across(where(is.numeric),mean, .names = '{.col}_mean'),
-#                                           across(where(is.numeric),sd, .names = '{.col}_sd'))  # gives mean and SD
-#
-# group_by(birthweight,SMOKE) %>% summarise(across(where(is.numeric),list(mean,sd))) # gives list of mean and SD of each column but doesnt tell the names
-# group_by(birthweight,SMOKE) %>% summarise(across(where(is.numeric),list(Mn=mean,StD=sd,Md=median,InQR=IQR))) # gives list of mean and SD and also its names
-# group_by(birthweight,SMOKE) %>% summarise(across(where(is.numeric),list(Mn=mean,StD=sd,Md=median,InQR=IQR))) %>% View # gives all the list and view it
-# group_by(birthweight,SMOKE) %>% mutate(across(where(is.numeric),list(Mn=mean,StD=sd,Md=median,InQR=IQR))) %>% View # gives new columns of aggregate function for each group
-
-
-#' Define location of your files
-#'
 
 #' # Linear Models
 #+ linear_models
