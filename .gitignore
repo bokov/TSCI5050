@@ -24,7 +24,6 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-.Rproj.user
 *.Rproj
 *.Rout
 *.md
@@ -52,3 +51,5 @@ local.config.R
 *.tsv
 *.rda
 *.xlsx
+.RData
+.Ruserdata
